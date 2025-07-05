@@ -1,0 +1,25 @@
+{
+  "name": "tools-and-mini-games",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/google-fonts": "^3.2.0",
+    "autoprefixer": "^10.4.21",
+    "nuxt": "^3.17.5",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "daisyui": "^4.12.24",
+    "prettier": "^3.6.2"
+  }
+}
