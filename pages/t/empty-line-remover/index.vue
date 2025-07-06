@@ -5,7 +5,7 @@
 <template>
     <div>
         <NuxtLink to="/" class="text-blue-500 hover:underline mb-4">
-            ← Back to Tools Menu
+            ← Back to Main Menu
         </NuxtLink>
 
         <div>
