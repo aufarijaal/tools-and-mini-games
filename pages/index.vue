@@ -6,6 +6,42 @@ definePageMeta({
 useHead({
   title: 'Collection of Tools and Mini Games'
 })
+
+const tools = [
+  {
+    name: 'Check Percentage',
+    path: '/t/check-percentage',
+    img: '/img/percentage-checker.png',
+    alt: 'Check Percentage',
+  },
+  {
+    name: 'Empty Line Remover',
+    path: '/t/empty-line-remover',
+    img: '/img/empty-line-remover.png',
+    alt: 'Empty Line Remover',
+  },
+  {
+    name: 'Line Sorter',
+    path: '/t/line-sorter',
+    img: '/img/line-sorter.png',
+    alt: 'Line Sorter',
+  },
+  {
+    name: 'Duplicate Line Remover',
+    path: '/t/duplicate-line-remover',
+    img: '/img/duplicate-line-remover.png',
+    alt: 'Duplicate Line Remover',
+  },
+]
+
+const games = [
+  {
+    name: 'Birthday Guesser',
+    path: '/g/birthday-guesser',
+    img: '/img/birthday-guesser.png',
+    alt: 'Birthday Guesser',
+  },
+]
 </script>
 
 <template>
@@ -22,49 +58,35 @@ useHead({
       <ThemeController />
     </div>
 
-    <div class="flex flex-col md:flex-row gap-4 w-full max-w-7xl">
-      <div class="card bg-base-200 shadow-md flex-1">
-        <div class="card-body">
-          <h3 class="card-title text-lg text-primary">Online Tools</h3>
-          <ul class="menu menu-vertical">
-            <li>
-              <NuxtLink to="/t/check-percentage" class="hover:bg-primary hover:text-primary-content rounded-md">
-                <span class="font-medium">Check Percentage</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/t/empty-line-remover" class="hover:bg-primary hover:text-primary-content rounded-md">
-                <span class="font-medium">Empty Line Remover</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/t/line-sorter" class="hover:bg-primary hover:text-primary-content rounded-md">
-                <span class="font-medium">Line sorter</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/t/duplicate-line-remover" class="hover:bg-primary hover:text-primary-content rounded-md">
-                <span class="font-medium">Duplicate Line Remover</span>
-              </NuxtLink>
-            </li>
-          </ul>
+    <div class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-bold text-primary mb-4">Online Tools</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <NuxtLink v-for="tool in tools" :key="tool.path" :to="tool.path"
+            class="card bg-base-200 shadow-md hover:shadow-lg transition group">
+            <div class="card-body flex flex-col items-center p-4">
+              <img :src="tool.img" :alt="tool.alt"
+                class="w-16 h-16 object-contain mb-3 group-hover:scale-110 transition" />
+              <span class="font-medium text-center">{{ tool.name }}</span>
+            </div>
+          </NuxtLink>
         </div>
       </div>
-      <div class="card bg-base-200 shadow-md flex-1">
-        <div class="card-body">
-          <h3 class="card-title text-lg text-secondary">Mini Games</h3>
-          <ul class="menu menu-vertical">
-            <li>
-              <NuxtLink to="/g/birthday-guesser" class="hover:bg-secondary hover:text-secondary-content rounded-md">
-                <span class="font-medium">Birthday Guesser</span>
-              </NuxtLink>
-            </li>
-          </ul>
+      <div>
+        <h3 class="text-xl font-bold text-secondary mb-4">Mini Games</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <NuxtLink v-for="game in games" :key="game.path" :to="game.path"
+            class="card bg-base-200 shadow-md hover:shadow-lg transition group">
+            <div class="card-body flex flex-col items-center p-4">
+              <img :src="game.img" :alt="game.alt"
+                class="w-16 h-16 object-contain mb-3 group-hover:scale-110 transition" />
+              <span class="font-medium text-center">{{ game.name }}</span>
+            </div>
+          </NuxtLink>
         </div>
       </div>
     </div>
 
-    <!-- made by -->
     <div class="mt-8 text-sm text-base-content/70">
       Made with ❤️ by
       <a href="https://github.com/aufarijaal" target="_blank" class="text-primary hover:underline">
