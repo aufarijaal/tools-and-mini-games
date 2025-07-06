@@ -42,6 +42,11 @@ useHead({
                 <span class="font-medium">Line sorter</span>
               </NuxtLink>
             </li>
+            <li>
+              <NuxtLink to="/t/duplicate-line-remover" class="hover:bg-primary hover:text-primary-content rounded-md">
+                <span class="font-medium">Duplicate Line Remover</span>
+              </NuxtLink>
+            </li>
           </ul>
         </div>
       </div>
