@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useMainStore } from '~/stores/main'
 
 useHead({
   title: 'Percentage Checker Tool',
@@ -12,21 +13,37 @@ useHead({
   ]
 })
 
+const store = useMainStore()
 const totalNumber = ref(0)
 const checkNumber = ref(0)
-const thresholdPercentage = ref(3)
 
 const percentage = computed(() => {
   if (totalNumber.value === 0) return 0
-  return (checkNumber.value / totalNumber.value) * 100
+  const raw = (checkNumber.value / totalNumber.value) * 100
+  const factor = Math.pow(10, store.decimalPlaces)
+  let rounded = raw
+  if (store.roundTo === 'up') {
+    rounded = Math.ceil(raw * factor) / factor
+  } else {
+    rounded = Math.floor(raw * factor) / factor
+  }
+  return rounded
 })
 
 const exceededThreshold = computed(() => {
-  return percentage.value > thresholdPercentage.value
+  return percentage.value > store.tresholdPercentage
 })
 
 const numberInThreshold = computed(() => {
-  return Math.ceil((thresholdPercentage.value / 100) * totalNumber.value)
+  const raw = (store.tresholdPercentage / 100) * totalNumber.value
+  const factor = Math.pow(10, store.decimalPlaces)
+  let rounded = raw
+  if (store.roundTo === 'up') {
+    rounded = Math.ceil(raw * factor) / factor
+  } else {
+    rounded = Math.floor(raw * factor) / factor
+  }
+  return rounded
 })
 
 const numberLeft = computed(() => {
@@ -42,6 +59,12 @@ const numberLeft = computed(() => {
     </NuxtLink>
 
     <h1 class="text-3xl font-bold mb-6 text-center">Percentage Checker Tool</h1>
+
+    <div class="mb-4 p-4 rounded-lg bg-info/10 border border-info text-info text-base">
+      <span class="font-semibold">Info:</span>
+      This tool helps you check if a production PO quantity for shoes (in pairs) has exceeded a certain percentage
+      threshold. Enter the total PO quantity and the number of replenishments to see if the threshold is exceeded.
+    </div>
 
     <div class="space-y-4">
       <div class="form-control">
@@ -62,10 +85,32 @@ const numberLeft = computed(() => {
 
       <div class="form-control">
         <label class="label">
-          <span class="label-text">Percentage (%)</span>
+          <span class="label-text">Threshold Percentage (%)</span>
         </label>
-        <input type="number" v-model="thresholdPercentage" min="0" max="100" step="0.1" class="input input-bordered"
-          placeholder="Enter threshold percentage" />
+        <input type="number" v-model="store.tresholdPercentage" min="0" max="100" step="0.1"
+          class="input input-bordered" placeholder="Enter threshold percentage" />
+      </div>
+
+      <div class="form-control flex flex-col md:flex-row gap-4">
+        <div>
+          <label class="label">
+            <span class="label-text">Decimal Places</span>
+          </label>
+          <input type="number" v-model="store.decimalPlaces" min="0" max="10" class="input input-bordered w-32" />
+        </div>
+        <div>
+          <label class="label">
+            <span class="label-text">Rounding</span>
+          </label>
+          <div class="flex gap-4 items-center">
+            <label class="cursor-pointer flex items-center gap-1">
+              <input type="radio" value="up" v-model="store.roundTo" class="radio radio-primary" /> Up
+            </label>
+            <label class="cursor-pointer flex items-center gap-1">
+              <input type="radio" value="down" v-model="store.roundTo" class="radio radio-primary" /> Down
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -74,25 +119,25 @@ const numberLeft = computed(() => {
         <div class="flex justify-between items-center">
           <span class="font-medium">Current Percentage:</span>
           <span :class="exceededThreshold
-              ? 'text-error font-bold'
-              : 'text-success font-bold'
+            ? 'text-error font-bold'
+            : 'text-success font-bold'
             ">
-            {{ percentage.toFixed(2) }}%
+            {{ percentage }}%
           </span>
         </div>
 
         <div class="flex justify-between items-center">
           <span class="font-medium">Status:</span>
           <span :class="exceededThreshold
-              ? 'text-error font-bold'
-              : 'text-success font-bold'
+            ? 'text-error font-bold'
+            : 'text-success font-bold'
             ">
             {{ exceededThreshold ? 'Exceeded Threshold' : 'Within Threshold' }}
           </span>
         </div>
 
         <div class="flex justify-between items-center">
-          <span class="font-medium">Quota in {{ thresholdPercentage }}%:</span>
+          <span class="font-medium">Quota in {{ store.tresholdPercentage }}%:</span>
           <span>{{ numberInThreshold }}</span>
         </div>
 

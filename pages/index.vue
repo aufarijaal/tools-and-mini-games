@@ -15,22 +15,10 @@ const tools = [
     alt: 'Check Percentage',
   },
   {
-    name: 'Empty Line Remover',
-    path: '/t/empty-line-remover',
-    img: '/img/empty-line-remover.png',
-    alt: 'Empty Line Remover',
-  },
-  {
-    name: 'Line Sorter',
-    path: '/t/line-sorter',
-    img: '/img/line-sorter.png',
-    alt: 'Line Sorter',
-  },
-  {
-    name: 'Duplicate Line Remover',
-    path: '/t/duplicate-line-remover',
-    img: '/img/duplicate-line-remover.png',
-    alt: 'Duplicate Line Remover',
+    name: 'Text Cleaner & Organizer',
+    path: '/t/text-cleaner-and-organizer',
+    img: '/img/text-cleaner-and-organizer.png',
+    alt: 'Text Cleaner & Organizer',
   },
 ]
 
